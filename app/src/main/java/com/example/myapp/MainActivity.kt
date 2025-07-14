@@ -1,9 +1,7 @@
 package com.example.myapp
 
- import android.R
- import java.util.Locale
+
  import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,11 +11,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+ import androidx.compose.foundation.layout.padding
+ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
@@ -37,10 +34,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
+ import androidx.compose.ui.text.font.FontWeight
+ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.myapp.ui.theme.MYAPPTheme
- import kotlin.math.roundToInt
+ import androidx.compose.ui.unit.sp
+ import com.example.myapp.ui.theme.MYAPPTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +63,9 @@ fun UnitConverter() {
 
     var inputValue by remember { mutableStateOf("") }
 
+    var unit by remember { mutableStateOf("") }
+    var unitshow by remember { mutableStateOf("") }
+
     var resultt by remember { mutableStateOf("")}
 
     val iconversionFactor = remember { mutableStateOf(1.00)}
@@ -73,11 +74,23 @@ fun UnitConverter() {
     var iexpanded by remember { mutableStateOf(false) }
     var oexpanded by remember { mutableStateOf(false)}
 
-    fun convertUnit(){
-        val inputValueDouble = inputValue.toDoubleOrNull()?:0.0
-        val result = (inputValueDouble*iconversionFactor.value*oconversionFactor.value)
-        resultt = result.toString()
+    val context = LocalContext.current
+
+    fun error(){
+        Toast.makeText(context,"Invalid Value", Toast.LENGTH_LONG).show()
     }
+    fun convertUnit(){
+
+        val inputValueDouble = inputValue.toDoubleOrNull()
+        if(inputValueDouble==null){
+            error()
+            return
+        }
+        val result = (inputValueDouble*iconversionFactor.value*oconversionFactor.value).toFloat()
+        resultt = result.toString()
+        unitshow= unit
+    }
+
 
     Column(
         modifier = Modifier
@@ -86,7 +99,15 @@ fun UnitConverter() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
         ) {
-        Text(text = "Unit Converter")
+
+        Text(
+            text = "Unit Converter",
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFF1E88E5),
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+
         Spacer(modifier = Modifier.height(32.dp))
 
 
@@ -198,9 +219,11 @@ fun UnitConverter() {
                 }
             }
             Spacer(modifier = Modifier.width(8.dp))
-            Box(){
+            Box{
                 Button(onClick = {
+
                     convertUnit()
+                    Toast.makeText(context,"Converted Successfully", Toast.LENGTH_LONG).show()
 
 
                 }){
@@ -224,6 +247,7 @@ fun UnitConverter() {
                             oexpanded=false
                             Btn2txt = "Millimeter"
                             oconversionFactor.value=1000.00
+                            unit = "mm"
 
 
 
@@ -235,6 +259,7 @@ fun UnitConverter() {
                             oexpanded=false
                             Btn2txt = "Centimeter"
                             oconversionFactor.value=100.00
+                            unit = "cm"
 
                         }
                     )
@@ -244,6 +269,7 @@ fun UnitConverter() {
                             oexpanded=false
                             Btn2txt = "Meter"
                             oconversionFactor.value=1.00
+                            unit = "m"
 
                         }
                     )
@@ -253,6 +279,7 @@ fun UnitConverter() {
                             oexpanded=false
                             Btn2txt = "Kilometer"
                             oconversionFactor.value=0.001
+                            unit = "km"
 
 
 
@@ -264,6 +291,7 @@ fun UnitConverter() {
                             oexpanded=false
                             Btn2txt = "Inch"
                             oconversionFactor.value=39.3701
+                            unit = "in"
 
 
 
@@ -275,6 +303,7 @@ fun UnitConverter() {
                             oexpanded=false
                             Btn2txt = "Foot"
                             oconversionFactor.value=3.28084
+                            unit = "ft"
 
 
 
@@ -286,6 +315,7 @@ fun UnitConverter() {
                             oexpanded=false
                             Btn2txt = "Yard"
                             oconversionFactor.value=1.09361
+                            unit = "yd"
 
 
 
@@ -298,6 +328,7 @@ fun UnitConverter() {
                             oexpanded=false
                             Btn2txt = "Mile"
                             oconversionFactor.value=0.000621371
+                            unit = "mi"
 
 
 
@@ -314,10 +345,29 @@ fun UnitConverter() {
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = "Result: $resultt")
+
+
+        Text(text = "Result: $resultt $unitshow",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Color(0xFF388E3C), // A nice green shade
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .align(Alignment.CenterHorizontally))
+        Spacer(modifier = Modifier.height(50.dp))
+        Text(
+            text = "Made with ❤️ by SoumyajiT",
+            fontSize = 14.sp,
+            color = Color.Gray,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 32.dp, bottom = 16.dp)
+        )
 
     }
+
 }
+
 
 
 @Preview(showBackground = true)
