@@ -20,13 +20,8 @@ Convert values between **metric and imperial units** quickly, with a smooth user
 
 ## 📸 Screenshots
 
-_Add your own screenshots like this:_
 
-### 🔷 Home Screen  
-![Home](images/home.png)
-
-### 🔁 Conversion Result  
-![Result](images/result.png)
+![Images](Images/)
 
 ---
 
