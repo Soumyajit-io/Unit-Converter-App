@@ -47,9 +47,7 @@ _Add your own screenshots like this:_
 
 ## 🌱 Why I Built This
 
-I've dreamed of building Android apps since I was in **Class 7**, but back then, I didn’t have the skills or experience.  
-After just **5 days of learning** app development, I finally built this app — and it works!  
-This marks the beginning of my app dev journey. 🚀
+This project was built as a part of my early Android development practice using Kotlin and Jetpack Compose. The goal was to create a functional, user-friendly unit converter app that focuses on clean UI, accurate conversion logic, and real-world usability. It allowed me to strengthen my fundamentals in modern Android development and demonstrate my ability to take an idea from concept to execution.
 
 ---
 
